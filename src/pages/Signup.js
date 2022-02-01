@@ -15,7 +15,7 @@ const Signup = () => {
 
     useEffect(() => {
         if (currentUser) {
-            navigate("/")
+            navigate("/contactList")
         }
     }, [currentUser, navigate])
 

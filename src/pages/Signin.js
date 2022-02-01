@@ -1,10 +1,33 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginInitiate } from '../redux/actions';
 
 const Signin = () => {
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+
+    const { currentUser } = useSelector((state) => state.user);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (currentUser) {
+            navigate("/contactList")
+        }
+    }, [currentUser, navigate])
+    const dispatch = useDispatch();
+
+    const onSubmit = data => {
+        console.log(data);
+        if (!data.email || !data.password) {
+            return;
+        }
+        dispatch(loginInitiate(data.email, data.password))
+
+    };
 
     return (
         <div>
