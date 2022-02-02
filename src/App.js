@@ -12,6 +12,7 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Header from './components/Shared/Header';
 import Footer from './components/Shared/Footer';
 import PrivateRoute from './components/PrivateRoute';
+import AddEdit from './pages/AddEdit/AddEdit';
 
 function App() {
   return (
@@ -20,7 +21,10 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />}></Route>
+          <Route path="/home" element={<Home />}></Route>
           <Route path="/contactList" element={<ContactLists />}></Route>
+          <Route path="/contactList/:id" element={<AddEdit />}></Route>
+          <Route path="/addContact" element={<AddEdit />}></Route>
           <Route path="/signin" element={<Signin />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>

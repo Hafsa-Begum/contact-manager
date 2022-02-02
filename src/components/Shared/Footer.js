@@ -2,9 +2,10 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div>
-            <h2>This is footer</h2>
-        </div>
+        <footer style={{ backgroundColor: '#6f42c1', color: '#fff' }} className='p-5'>
+            <p>All credit &copy; goes to MERCH BD</p>
+            <small>Done By Mst Hafsa Begum</small>
+        </footer>
     );
 };
 
