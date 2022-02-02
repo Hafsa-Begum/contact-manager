@@ -11,6 +11,7 @@ import Signup from './pages/Signup/Signup';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Header from './components/Shared/Header';
 import Footer from './components/Shared/Footer';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
