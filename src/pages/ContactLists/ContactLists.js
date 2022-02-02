@@ -1,4 +1,5 @@
 import React from 'react';
+import './ContactLists.css';
 
 const ContactLists = () => {
     return (

@@ -1,6 +1,6 @@
 import firebase from "firebase/compat/app";
 import 'firebase/compat/auth';
-// import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import 'firebase/compat/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAyDrTq4k97Yt_N7iFmZFyJBgWpf0kIhpk",
@@ -11,9 +11,6 @@ const firebaseConfig = {
     appId: "1:823373063790:web:a84cc524cd15590c2e687f"
 };
 
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+export const db = firebaseApp.firestore();
 export const auth = firebase.auth();
-// const auth = getAuth();
-// const registerUsingEmailAndPassword = createUserWithEmailAndPassword(auth, email, password)
-
-// export { authorization };

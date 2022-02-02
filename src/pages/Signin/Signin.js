@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginInitiate } from '../redux/actions';
+import { loginInitiate } from '../../redux/actions/auth_actions';
+import './Signin.css';
+//https://i.ibb.co/Jqs4T7K/5163953-ai.png
 
 const Signin = () => {
     const { register, handleSubmit } = useForm();

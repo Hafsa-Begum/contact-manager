@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Navbar } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { logoutInitiate } from '../../redux/actions';
+import { logoutInitiate } from '../../redux/actions/auth_actions';
 
 const Header = () => {
     const navigate = useNavigate();

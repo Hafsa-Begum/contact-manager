@@ -4,11 +4,11 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Home from './pages/Home';
-import ContactLists from './pages/ContactLists';
-import Signin from './pages/Signin';
-import Signup from './pages/Signup';
-import ErrorPage from './pages/ErrorPage';
+import Home from './pages/Home/Home';
+import ContactLists from './pages/ContactLists/ContactLists';
+import Signin from './pages/Signin/Signin';
+import Signup from './pages/Signup/Signup';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Header from './components/Shared/Header';
 import Footer from './components/Shared/Footer';
 
