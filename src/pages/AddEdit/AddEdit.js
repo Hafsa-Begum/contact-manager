@@ -1,11 +1,18 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { addContactInitiate } from '../../redux/actions/contact_actions';
 
 const AddEdit = () => {
     const { register, handleSubmit } = useForm();
+    const dispatch = useDispatch();
+    // const {contact} = useSelector((state) => state.data);
 
     const onSubmit = data => {
         console.log(data);
+        dispatch(addContactInitiate(data));
+        Swal.fire('Wow! New contact added successfully.');
     };
 
     return (

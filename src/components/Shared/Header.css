@@ -1,0 +1,10 @@
+.nav-link{
+    text-decoration: none;
+}
+
+.nav-link.active{
+    background-color: violet;
+    color: white;
+    border-radius: 5px;
+}
+
