@@ -66,7 +66,7 @@ export const loginInitiate = (email, password) => {
 
 export const logoutInitiate = () => {
     return function (dispatch) {
-        dispatch(loginStart());
+        dispatch(logoutStart());
         auth.signOut().then((resp) => dispatch(logoutSuccess())).catch((error) => dispatch(logoutFail(error.message)));
     };
 };

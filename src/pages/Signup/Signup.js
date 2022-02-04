@@ -9,7 +9,7 @@ import './Signup.css';
 //https://i.ibb.co/Jqs4T7K/5163953-ai.png
 
 const Signup = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, reset, handleSubmit } = useForm();
 
     const { currentUser } = useSelector((state) => state.user);
 
@@ -28,7 +28,8 @@ const Signup = () => {
         if (data.password !== data.confirmPassword) {
             return;
         };
-        dispatch(registerInitiate(data.email, data.password, data.fullName))
+        dispatch(registerInitiate(data.email, data.password, data.fullName));
+        reset();
     };
 
     return (

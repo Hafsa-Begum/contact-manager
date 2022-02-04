@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Navbar } from 'react-bootstrap';
+import { Button, Container, Form, FormControl, Navbar } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { logoutInitiate } from '../../redux/actions/auth_actions';
@@ -7,6 +7,7 @@ import './Header.css';
 
 const Header = () => {
     const [activeTab, setActiveTab] = useState("Home")
+    const [search, setSearch] = useState("");
 
     const navigate = useNavigate();
     const { currentUser } = useSelector((state) => state.user);
@@ -20,6 +21,12 @@ const Header = () => {
         }
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        navigate(`/search?name=${search}`);
+        setSearch("");
+    }
+
     return (
         <div className=''>
             <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#6f42c1', color: '#fff' }}>
@@ -28,8 +35,8 @@ const Header = () => {
                     <Navbar.Toggle />
                     <Navbar.Collapse className="nav justify-content-end">
                         <NavLink onClick={() => setActiveTab("Home")} style={{ color: '#fff' }} className={`${activeTab === "Home" ? "active nav-link" : "nav-link"}`} to="/home"><i className="fs-5 fas fa-home"></i> Home</NavLink>
-                        <NavLink onClick={() => setActiveTab("Contact List")} style={{ color: '#fff' }} className={`${activeTab === "Contact List" ? "active nav-link" : "nav-link"}`} to="/contactList"><i className="fs-5 fas fa-address-book"></i> Contact List</NavLink>
-                        <NavLink onClick={() => setActiveTab("Add Contact")} style={{ color: '#fff' }} className={`${activeTab === "Add Contact" ? "active nav-link" : "nav-link"}`} to="/addContact"><i class="fs-5 fas fa-user-plus"></i> Add Contact</NavLink>
+                        {/* <NavLink onClick={() => setActiveTab("Contact List")} style={{ color: '#fff' }} className={`${activeTab === "Contact List" ? "active nav-link" : "nav-link"}`} to="/contactList"><i className="fs-5 fas fa-address-book"></i> Contact List</NavLink>
+                        <NavLink onClick={() => setActiveTab("Add Contact")} style={{ color: '#fff' }} className={`${activeTab === "Add Contact" ? "active nav-link" : "nav-link"}`} to="/addContact"><i class="fs-5 fas fa-user-plus"></i> Add Contact</NavLink> */}
                         {
                             currentUser?.displayName ? <>
                                 <NavLink onClick={() => setActiveTab("Contact List")} style={{ color: '#fff' }} className={`${activeTab === "Contact List" ? "active nav-link" : "nav-link"}`} to="/contactList"><i className="fs-5 fas fa-address-book"></i> Contact List</NavLink>
@@ -43,6 +50,17 @@ const Header = () => {
                             <Navbar.Text>
                                 <h5 className='ms-4 text-white'>Hi, {currentUser?.displayName}</h5>
                             </Navbar.Text>}
+                        <Form className="d-flex ms-5" onSubmit={handleSubmit}>
+                            <FormControl
+                                type="search"
+                                placeholder="Search By Name"
+                                className="me-2"
+                                aria-label="Search"
+                                onChange={(e) => setSearch(e.target.value)}
+                                value={search}
+                            />
+                            {/* <Button variant='dark' type="submit">Search</Button> */}
+                        </Form>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

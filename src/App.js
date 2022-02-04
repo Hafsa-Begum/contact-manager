@@ -13,6 +13,7 @@ import Header from './components/Shared/Header';
 import Footer from './components/Shared/Footer';
 import PrivateRoute from './components/PrivateRoute';
 import AddEdit from './pages/AddEdit/AddEdit';
+import Search from './pages/Search/Search';
 
 function App() {
   return (
@@ -22,9 +23,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/home" element={<Home />}></Route>
-          <Route path="/contactList" element={<ContactLists />}></Route>
-          <Route path="/contactList/:id" element={<AddEdit />}></Route>
-          <Route path="/addContact" element={<AddEdit />}></Route>
+          <Route path="/contactList" element={<PrivateRoute><ContactLists /></PrivateRoute>}></Route>
+          <Route path="/update/:id" element={<AddEdit />}></Route>
+          <Route path="/addContact" element={<PrivateRoute><AddEdit /></PrivateRoute>}></Route>
+          <Route path="/search" element={<PrivateRoute><Search /></PrivateRoute>}></Route>
           <Route path="/signin" element={<Signin />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>

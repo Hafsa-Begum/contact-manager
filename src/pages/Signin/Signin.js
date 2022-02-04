@@ -8,7 +8,7 @@ import { loginInitiate } from '../../redux/actions/auth_actions';
 import './Signin.css';
 
 const Signin = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, reset, handleSubmit } = useForm();
 
     const { currentUser } = useSelector((state) => state.user);
 
@@ -26,7 +26,8 @@ const Signin = () => {
         if (!data.email || !data.password) {
             return;
         }
-        dispatch(loginInitiate(data.email, data.password))
+        dispatch(loginInitiate(data.email, data.password));
+        reset();
 
     };
 

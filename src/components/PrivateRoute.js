@@ -1,11 +1,18 @@
 import React from 'react';
+import { Spinner } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { Route } from 'react-router-dom';
-import LoadingToRedirect from './LoadingToRedirect';
+import { useLocation, Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ children, ...rest }) => {
-    const { currentUser } = useSelector((state) => state.user);
-    return currentUser ? <Route {...rest} /> : <LoadingToRedirect />
+const PrivateRoute = ({ children }) => {
+    const { currentUser, loading } = useSelector((state) => state.user);
+    let location = useLocation();
+    if (loading) {
+        return <Spinner animation="border" variant="info" />
+    }
+    if (currentUser?.email) {
+        return children;
+    }
+    return <Navigate to='/signin' state={{ from: location }} />;
 
 };
 
