@@ -37,37 +37,28 @@ const Search = () => {
     return (
         <div style={{ height: '100vh' }} className=''>
             <div className='w-50 mx-auto my-5'>
-                <div>
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{data.name}</td>
-                                <td>{data.email}</td>
-                                <td>{data.phone}</td>
-                            </tr>
-                            {/* {Object.keys(data).map((id, index) => {
-                                return (
-
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{data[id].name}</td>
-                                        <td>{data[id].email}</td>
-                                        <td>{data[id].phone}</td>
+                {
+                    Object.keys(data).length === 0 ? <h2>No contact found by the name {data.name}</h2> :
+                        <div>
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{data.name}</td>
+                                        <td>{data.email}</td>
+                                        <td>{data.phone}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </div>
+                }
 
-                                )
-                            })
-                            } */}
-                        </tbody>
-                    </Table>
-                </div>
             </div>
         </div>
     );

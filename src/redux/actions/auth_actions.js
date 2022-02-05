@@ -70,3 +70,24 @@ export const logoutInitiate = () => {
         auth.signOut().then((resp) => dispatch(logoutSuccess())).catch((error) => dispatch(logoutFail(error.message)));
     };
 };
+
+export const fetchUser = () => {
+    return function (dispatch) {
+        auth.onAuthStateChanged((currentUser) => {
+            if (currentUser) {
+                localStorage.setItem("isAuthenticated", true);
+                dispatch({
+                    type: "FETCH_USER",
+                    payload: currentUser.toJSON(),
+                });
+            } else {
+                localStorage.removeItem("isAuthenticated");
+                dispatch({
+                    type: "FETCH_USER",
+                    currentUser: null,
+                });
+            }
+        });
+
+    }
+};

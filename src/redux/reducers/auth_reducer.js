@@ -22,11 +22,14 @@ const userReducer = (state = initialState, action) => {
             };
         case types.REGISTER_SUCCESS:
         case types.LOGIN_SUCCESS:
+        case types.FETCH_USER:
             return {
                 ...state,
                 loading: false,
                 currentUser: action.payload,
             };
+        // case types.FETCH_USER:
+        // return action.currentUser;
         case types.REGISTER_FAIL:
         case types.LOGIN_FAIL:
         case types.LOGOUT_FAIL:

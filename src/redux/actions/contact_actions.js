@@ -14,6 +14,10 @@ const deleteContact = () => ({
     type: types.DELETE_CONTACT,
 });
 
+const updateContact = () => ({
+    type: types.UPDATE_CONTACT,
+});
+
 const getContact = contact => ({
     type: types.GET_CONTACT,
     payload: contact,
@@ -42,6 +46,13 @@ export const deleteContactInitiate = (id) => {
     return function (dispatch) {
         db.collection("contacts").doc(id).delete();
         dispatch(deleteContact());
+    };
+};
+
+export const updateContactInitiate = (id, contact) => {
+    return function (dispatch) {
+        db.collection("contacts").doc(id).update(contact);
+        dispatch(updateContact());
     };
 };
 

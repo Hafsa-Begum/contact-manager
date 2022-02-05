@@ -1,17 +1,14 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Spinner, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ViewModal from '../../components/ViewModal/ViewModal';
 import { getContactsInitiate, deleteContactInitiate, getContactInitiate } from '../../redux/actions/contact_actions';
-import AddEdit from '../AddEdit/AddEdit';
 import './ContactLists.css';
 
 const ContactLists = () => {
-    const [editMode, setEditMode] = useState(false);
-
-    //view model
+    //view modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -22,66 +19,74 @@ const ContactLists = () => {
 
     useEffect(() => {
         dispatch(getContactsInitiate())
-    }, [])
-
-    // useEffect(() => {
-    //     if (contact) {
-    //         dispatch(getContactInitiate())
-    //     }
-    // }, [contact])
+    }, []);
 
     const handleDeleteContact = (id) => {
         if (window.confirm("Are you sure, you want to delete contact?")) {
             dispatch(deleteContactInitiate(id))
         }
 
-    }
+    };
 
     const editContact = id => {
-        setEditMode(true);
-        dispatch(getContactInitiate(id))
-    }
+        dispatch(getContactInitiate(id));
+    };
+
+    const handleVeiwContact = id => {
+        dispatch(getContactInitiate(id));
+    };
 
     return (
-        <div style={{ height: '100vh' }} className=''>
-            <div className='w-50 mx-auto my-5'>
+        <div style={{
+            height: '100vh',
+            backgroundImage: 'linear-gradient( rgba(255,255,255,0.7), rgba(255,255,255,0.7)),url("https://i.pinimg.com/736x/c4/53/9e/c4539eb1f1c22eb729d0fe532b0a19cc.jpg")',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'scroll',
+            backgroundSize: '100% 100% '
+        }} className='pt-5'>
+            <div className='w-50 mx-auto pt-5'>
 
                 {
-                    contacts ? <div>
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody >
-                                {contacts && contacts?.map((item, index) => (
-
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.email}</td>
-                                        <td>{item.phone}</td>
-                                        <td>
-                                            <i onClick={handleShow} title="View" className="fs-5 mx-3 fas fa-eye"></i>
-                                            <ViewModal item={item} show={show} handleClose={handleClose} />
-                                            <Link to={`/update/${item.id}`}>
-                                                <i onClick={() => editContact(item.id)} title="Update" className="fs-5 mx-2 fas fa-user-edit" style={{ color: '#6f42c1' }}></i>
-                                            </Link>
-                                            <i onClick={() => handleDeleteContact(item.id)} title="Delete" className="fs-5 mx-3 fas fa-trash-alt text-danger"></i>
-                                        </td>
+                    contacts?.length === 0 ?
+                        <h2>No contacts added yet. Create one!</h2>
+                        :
+                        <div>
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Action</th>
                                     </tr>
+                                </thead>
+                                <tbody >
+                                    {contacts && contacts?.map((item, index) => (
 
-                                ))
-                                }
-                            </tbody>
-                        </Table>
-                    </div> :
-                        <Spinner animation="border" variant="info" />
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{item.name}</td>
+                                            <td>{item.email}</td>
+                                            <td>{item.phone}</td>
+                                            <td>
+                                                <span onClick={() => handleVeiwContact(item.id)}>
+                                                    <i onClick={handleShow} title="View" className="fs-5 mx-3 fas fa-eye"></i>
+                                                    <ViewModal item={contact} show={show} handleClose={handleClose} />
+                                                </span>
+
+                                                <Link to={`/update/${item.id}`}>
+                                                    <i onClick={() => editContact(item.id)} title="Update" className="fs-5 mx-2 fas fa-user-edit" style={{ color: '#6f42c1' }}></i>
+                                                </Link>
+                                                <i onClick={() => handleDeleteContact(item.id)} title="Delete" className="fs-5 mx-3 fas fa-trash-alt text-danger"></i>
+                                            </td>
+                                        </tr>
+
+                                    ))
+                                    }
+                                </tbody>
+                            </Table>
+                        </div>
                 }
             </div>
         </div>

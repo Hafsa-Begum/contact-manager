@@ -30,13 +30,12 @@ const Header = () => {
     return (
         <div className=''>
             <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#6f42c1', color: '#fff' }}>
-                <Container className='p-2'>
-                    <Navbar.Brand href="/home"><img src="https://i.ibb.co/02mVbb3/logo-1.png" alt="" /> <span className='fst-italic'>Smart <sub>Contact Manager</sub> </span></Navbar.Brand>
+                <Container className=''>
+                    <Navbar.Brand href="/home"><img className='rounded-circle' src="https://i.ibb.co/84rHZw9/image-2.png" alt="" /> <span className='text-white'> Contact Manager </span></Navbar.Brand>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="nav justify-content-end">
                         <NavLink onClick={() => setActiveTab("Home")} style={{ color: '#fff' }} className={`${activeTab === "Home" ? "active nav-link" : "nav-link"}`} to="/home"><i className="fs-5 fas fa-home"></i> Home</NavLink>
-                        {/* <NavLink onClick={() => setActiveTab("Contact List")} style={{ color: '#fff' }} className={`${activeTab === "Contact List" ? "active nav-link" : "nav-link"}`} to="/contactList"><i className="fs-5 fas fa-address-book"></i> Contact List</NavLink>
-                        <NavLink onClick={() => setActiveTab("Add Contact")} style={{ color: '#fff' }} className={`${activeTab === "Add Contact" ? "active nav-link" : "nav-link"}`} to="/addContact"><i class="fs-5 fas fa-user-plus"></i> Add Contact</NavLink> */}
+
                         {
                             currentUser?.displayName ? <>
                                 <NavLink onClick={() => setActiveTab("Contact List")} style={{ color: '#fff' }} className={`${activeTab === "Contact List" ? "active nav-link" : "nav-link"}`} to="/contactList"><i className="fs-5 fas fa-address-book"></i> Contact List</NavLink>
@@ -46,10 +45,7 @@ const Header = () => {
                                 :
                                 <NavLink onClick={() => setActiveTab("Signin")} style={{ color: '#fff' }} className={`${activeTab === "Signin" ? "active nav-link" : "nav-link"}`} to="/signin"><i className="fs-5 fas fa-sign-in-alt"></i> Signin</NavLink>
                         }
-                        {currentUser?.displayName &&
-                            <Navbar.Text>
-                                <h5 className='ms-4 text-white'>Hi, {currentUser?.displayName}</h5>
-                            </Navbar.Text>}
+
                         <Form className="d-flex ms-5" onSubmit={handleSubmit}>
                             <FormControl
                                 type="search"
@@ -61,6 +57,13 @@ const Header = () => {
                             />
                             {/* <Button variant='dark' type="submit">Search</Button> */}
                         </Form>
+                        {
+                            currentUser?.displayName &&
+                            <Navbar.Text>
+                                <h3 className='p-2 ms-4 text-white bg-dark rounded-circle'>
+                                    {currentUser?.displayName?.slice(0, 1)}{currentUser?.displayName?.split(' ')[1]?.slice(0, 1)}</h3>
+                            </Navbar.Text>
+                        }
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

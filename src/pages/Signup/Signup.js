@@ -35,7 +35,7 @@ const Signup = () => {
     return (
         <div className="container h-100">
 
-            <div className="row mt-5">
+            <div className="row mt-5 pb-5">
                 <div className="signin-image col-md-6 col-12">
                     <img src="https://i.ibb.co/Jqs4T7K/5163953-ai.png" alt="" />
                 </div>

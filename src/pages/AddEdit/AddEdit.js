@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { addContactInitiate, getContactInitiate, getContactsInitiate } from '../../redux/actions/contact_actions';
+import { addContactInitiate, getContactInitiate, getContactsInitiate, updateContactInitiate } from '../../redux/actions/contact_actions';
 
 const initialState = {
     name: "",
@@ -12,20 +12,24 @@ const initialState = {
 }
 
 const AddEdit = () => {
-    const { id } = useParams();
+    const [errorMsg, setErrorMsg] = useState("");
     const [state, setState] = useState(initialState);
-    const { name, email, phone } = state;
+    let { name, email, phone } = state;
+    const { id } = useParams();
+
 
     const dispatch = useDispatch();
     const { contact } = useSelector((state) => state.data);
 
+
+
     useEffect(() => {
-        dispatch(getContactInitiate())
+        dispatch(getContactInitiate(id))
     }, [id])
 
     useEffect(() => {
         if (contact) {
-            setState({ ...state })
+            setState(contact)
         } else {
             setState({ ...initialState })
         }
@@ -41,16 +45,36 @@ const AddEdit = () => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(addContactInitiate(state));
-        Swal.fire('Wow! New contact added successfully.');
+        if (!name || !email || !phone) {
+            setErrorMsg("Please fill out all input-fields");
+        } else {
+            if (!id) {
+                dispatch(addContactInitiate(state));
+                Swal.fire('Wow! New contact added successfully.');
+                setState({ name: '', email: '', phone: '' });
+                setErrorMsg("");
+            } else {
+                dispatch(updateContactInitiate(id, state))
+                Swal.fire('Contact updated successfully!');
+                setState({ name: '', email: '', phone: '' });
+                setErrorMsg("");
+            }
+        }
     };
 
     return (
-        <div className="container h-100">
-            <div className='my-5 d-flex justify-content-center align-items-center'>
+        <div style={{
+            height: '100vh',
+            backgroundImage: 'linear-gradient( rgba(255,255,255,0.7), rgba(255,255,255,0.7)),url("https://i.pinimg.com/736x/c4/53/9e/c4539eb1f1c22eb729d0fe532b0a19cc.jpg")',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'scroll',
+            backgroundSize: '100% 100% '
+        }}>
+            <div className='py-5 d-flex justify-content-center align-items-center'>
                 <div style={{ boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px' }} className='w-50 h-100 rounded-3 mt-3 d-flex justify-content-center align-items-center'>
                     <div className='w-75 my-5'>
-                        <h2 style={{ color: '#6f42c1' }}>Add New Contact</h2>
+                        <h2 style={{ color: '#6f42c1' }}>{id ? 'Update Contact' : 'Add New Contact'}</h2>
+                        {errorMsg && <p className='text-danger'>{errorMsg}</p>}
                         <form onSubmit={handleSubmit}>
                             <input
                                 className='w-75 my-4 p-2 rounded-3'
@@ -77,7 +101,7 @@ const AddEdit = () => {
                                 onChange={handleInputChange}
                             /> <br />
 
-                            <input style={{ backgroundColor: '#6f42c1', color: '#fff' }} className='w-25 rounded-3 mb-2 p-1' type="submit" />
+                            <input style={{ backgroundColor: '#6f42c1', color: '#fff' }} className='w-25 rounded-3 mb-2 p-1' type="submit" placeholder={id ? "Update" : "submit"} />
 
                         </form>
                     </div>

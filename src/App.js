@@ -14,8 +14,14 @@ import Footer from './components/Shared/Footer';
 import PrivateRoute from './components/PrivateRoute';
 import AddEdit from './pages/AddEdit/AddEdit';
 import Search from './pages/Search/Search';
+import { fetchUser } from './redux/actions/auth_actions';
+import { useLayoutEffect } from 'react';
+import { connect } from 'react-redux';
 
-function App() {
+function App({ fetchUser }) {
+  useLayoutEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
   return (
     <div className="App">
       <Router>
@@ -23,12 +29,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/home" element={<Home />}></Route>
-          <Route path="/contactList" element={<PrivateRoute><ContactLists /></PrivateRoute>}></Route>
-          <Route path="/update/:id" element={<AddEdit />}></Route>
-          <Route path="/addContact" element={<PrivateRoute><AddEdit /></PrivateRoute>}></Route>
-          <Route path="/search" element={<PrivateRoute><Search /></PrivateRoute>}></Route>
           <Route path="/signin" element={<Signin />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/contactList" element={<PrivateRoute><ContactLists /></PrivateRoute>}></Route>
+          <Route path="/update/:id" element={<PrivateRoute><AddEdit /></PrivateRoute>}></Route>
+          <Route path="/addContact" element={<PrivateRoute><AddEdit /></PrivateRoute>}></Route>
+          <Route path="/search" element={<PrivateRoute><Search /></PrivateRoute>}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
         <Footer />
@@ -37,4 +43,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(null, { fetchUser })(App);
