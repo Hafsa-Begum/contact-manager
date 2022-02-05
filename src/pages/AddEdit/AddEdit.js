@@ -3,16 +3,19 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { addContactInitiate, getContactInitiate, getContactsInitiate, updateContactInitiate } from '../../redux/actions/contact_actions';
+import { addContactInitiate, getContactInitiate, updateContactInitiate } from '../../redux/actions/contact_actions';
 
-const initialState = {
-    name: "",
-    email: "",
-    phone: ""
-}
+
 
 const AddEdit = () => {
     const [errorMsg, setErrorMsg] = useState("");
+    const { currentUser } = useSelector((state) => state.user);
+    const initialState = {
+        name: "",
+        email: "",
+        phone: "",
+        userEmail: currentUser.email
+    };
     const [state, setState] = useState(initialState);
     let { name, email, phone } = state;
     const { id } = useParams();
@@ -23,9 +26,10 @@ const AddEdit = () => {
 
 
 
+
     useEffect(() => {
         dispatch(getContactInitiate(id))
-    }, [id])
+    }, [id, dispatch])
 
     useEffect(() => {
         if (contact) {

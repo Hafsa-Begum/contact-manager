@@ -23,6 +23,11 @@ const getContact = contact => ({
     payload: contact,
 });
 
+// const getContactByEmail = contact => ({
+//     type: types.GET_CONTACT_BY_EMAIL,
+//     payload: contact,
+// });
+
 export const getContactsInitiate = () => {
     return function (dispatch) {
         db.collection("contacts").onSnapshot((querySnapshot) => {
@@ -63,3 +68,18 @@ export const getContactInitiate = id => {
         }).catch((error) => console.log(error));
     };
 };
+
+// export const getContactInitiateByEmail = user => {
+//     return function (dispatch) {
+//         db.collection("contacts").where("email", '==', user?.currentUser?.email).onSnapshot((querySnapshot) => {
+//             querySnapshot.forEach(doc => {
+//                 const data = doc.data();
+//                 console.log(data)
+//                 dispatch(getContactByEmail(data))
+//             })
+
+
+//         })
+//     };
+// };
+

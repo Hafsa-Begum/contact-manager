@@ -5,7 +5,7 @@ import { db } from '../../firebase/firebase';
 import './Search.css';
 
 const Search = () => {
-    const [data, setData] = useState({});
+    const [data, setData] = useState([]);
 
     const useQuery = () => {
         return new URLSearchParams(useLocation().search);
@@ -21,6 +21,7 @@ const Search = () => {
     }, [search]);
 
 
+    //search contact by name
     const searchData = () => {
         db.collection("contacts").where("name", "==", search).onSnapshot((querySnapshot) => {
             querySnapshot.forEach(doc => {

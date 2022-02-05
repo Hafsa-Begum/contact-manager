@@ -13,14 +13,16 @@ const ContactLists = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
+    //redux
     const dispatch = useDispatch();
     const { contacts, contact } = useSelector((state) => state.data)
 
+    //get all contacts
     useEffect(() => {
         dispatch(getContactsInitiate())
-    }, []);
+    }, [dispatch]);
 
+    //delete a contact
     const handleDeleteContact = (id) => {
         if (window.confirm("Are you sure, you want to delete contact?")) {
             dispatch(deleteContactInitiate(id))
@@ -28,10 +30,12 @@ const ContactLists = () => {
 
     };
 
+    //update contact
     const editContact = id => {
         dispatch(getContactInitiate(id));
     };
 
+    //view contact detail
     const handleVeiwContact = id => {
         dispatch(getContactInitiate(id));
     };

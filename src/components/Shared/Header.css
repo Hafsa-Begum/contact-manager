@@ -1,5 +1,6 @@
 .nav-link{
     text-decoration: none;
+    font-size: 15px;
 }
 
 .nav-link.active{
